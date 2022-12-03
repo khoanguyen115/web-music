@@ -13,13 +13,14 @@
 
 
 Auth::routes();
-Route::get('/', 'PagesController@index');
+Route::get('/', 'PagesController@index')->name('index');
 Route::post('login', 'Auth\LoginController@apilogin')->name('apilogin');
 Route::group(['prefix'=>'admin', 'middleware'=>'auth'], function(){
-Route::get('musics', 'AdminController@music')->name('music');
-Route::get('albums', 'AdminController@album')->name('album');
-Route::get('events', 'AdminController@event')->name('event');
-Route::get('users', 'AdminController@user');
+	Route::get('musics', 'AdminController@music')->name('music');
+	Route::get('albums', 'AdminController@album')->name('album');
+	Route::get('events', 'AdminController@event')->name('event');
+	Route::get('users', 'AdminController@user')->name('users');
+	Route::get('users/delete/{id}', 'AdminController@userDelete')->name('admin.users.delete');
 });
 
 Route::get('/admin', 'AdminController@index')->middleware('auth')->name('home');

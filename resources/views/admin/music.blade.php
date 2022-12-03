@@ -41,7 +41,7 @@ Bài hát
           <tr>
             <th scope="row">{{$music->id}}</th>
             <td>{{$music->title}}</td>
-            <td>{{($music->album_id == 0) ? "Single" : $music->album->name}}</td>
+            <td>{{($music->album_id == 0) ? "Trống" : $music->album->name}}</td>
           <td>{{$music->artist}}</td>
           <td>{{$music->year}}</td>
         <td>
@@ -121,14 +121,15 @@ Bài hát
 
                                 </div>
                         </div>
-
-
+                        <div class="form-group">
+                            <label for="artist">Tên ca sỹ</label>
+                            <input type="text" name="artist" class="form-control" id="editartist" required>
+                        </div>
 
                         <div class="form-group">
-
-                        <label for="image">Thêm ảnh</label>
-                        <input type="file" name="image" id="editimage">
-                        <img src="#" alt="preview" id="previewedit" style="width: 20%;">
+                            <label for="image">Thêm ảnh</label>
+                            <input type="file" name="image" id="editimage">
+                            <img src="#" alt="preview" id="previewedit" style="width: 20%;">
                         </div>
 
                         <hr>
@@ -203,7 +204,10 @@ Bài hát
         </div>
 </div>
 
-
+<div class="form-group">
+<label for="artist">Tên ca sỹ</label>
+<input type="text" name="artist" class="form-control" id="artist" required>
+</div>
 
 <div class="form-group">
 
@@ -246,6 +250,7 @@ function editmusic(music)
     $('#edityear').val(music.year)
     $('#editalbum').val(music.album_id)
     $('#edittitle').val(music.title)
+    $('#editartist').val(music.artist)
     $('#editid').val(music.id)
 
     //Passing the image from db to preview

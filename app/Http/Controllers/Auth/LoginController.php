@@ -28,8 +28,22 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/admin';
+    // protected $redirectTo = '/admin';
+    public function redirectTo(){
 
+        // User role
+        $role = Auth::user()->role; 
+
+        // Check user role
+        switch ($role) {
+            case 'admin':
+                    return '/admin';
+                break;
+            default:
+                    return '/'; 
+                break;
+        }
+    }
     /**
      * Create a new controller instance.
      *
@@ -41,26 +55,31 @@ class LoginController extends Controller
     }
 
     public function apilogin(Request $request){
-    $email = $request->input('email');
-    $pass = $request->input('password');
+        $email = $request->input('email');
+        $pass = $request->input('password');
 
-    $check = User::where('email', $email)->get();
-    if(count($check) > 0){
-    $user = User::where('email', $email)->first();
-    $hashpass = Hash::make($pass);
-    if (Hash::check($pass, $user->password)) {
-       //Atenticate user
-        Auth::login($user);
-        return ['status'=> 'success', 'message'=>'Successful'];
-    }
-    else
-    {
-        return ['status'=> 'error', 'message'=>'Invalid password'];
-        //Invalid Password
-    }
-}
-    else{
-        return ['status'=> 'error', 'message'=>'Invalid crendential'];
-    }
+        $check = User::where('email', $email)->get();
+        if(count($check) > 0){
+            $user = User::where('email', $email)->first();
+            $hashpass = Hash::make($pass);
+            if (Hash::check($pass, $user->password)) {
+               //Atenticate user
+                Auth::login($user);
+                // dd(Auth::login($user));
+
+                $role = Auth::user()->role; 
+
+                // Check user role
+                return ['status'=> 'success', 'message'=>'Successful', 'role' =>$role];
+            }
+            else
+            {
+                return ['status'=> 'error', 'message'=>'Invalid password'];
+                //Invalid Password
+            }
+        }
+        else{
+            return ['status'=> 'error', 'message'=>'Invalid crendential'];
+        }
     }
 }

@@ -18,7 +18,9 @@
     <link rel="icon" href="img/core-img/favicon.ico">
 
     <!-- Stylesheet -->
-
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="{{asset('vendor/main/stylecss.css')}}">
 </head>
 
@@ -58,7 +60,7 @@
                     <nav class="classy-navbar justify-content-between" id="oneMusicNav">
 
                         <!-- Nav brand -->
-                    <a href="{{url('/')}}" class="nav-brand text-white">NHẠC VIỆT</a>
+                    <a href="{{url('/')}}" class="nav-brand text-white text-center">NHẠC PROVIP</a>
 
                         <!-- Navbar Toggler -->
                         <div class="classy-navbar-toggler">
@@ -81,8 +83,39 @@
                                      <li><a href="{{url('/events')}}">Sự kiện</a></li>
                                     <li><a href="{{url('/musics')}}">Bài hát</a></li>
                                     <li><a href="{{url('/contact')}}">Góp Ý</a></li>
-                                
+
+                                    @if (Auth::check())
+                                        <li><a data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" class="text-uppercase">{{Auth::user()->name}}</a></li>
+                                    @endif
+                                    @if(!Auth::check())   
+                                        <li><a href="{{url('/register')}}">Đăng ký</a></li>
+                                        <li><a href="{{url('/login')}}">Đăng nhập</a></li>                                
+                                    @endif
                                 </ul>
+
+                                @if (Auth::check())
+                                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+                                  <div class="offcanvas-header">
+                                    <h5 id="offcanvasRightLabel">Trang quản lý</h5>
+                                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                  </div>
+                                  <div class="offcanvas-body">
+                                    <p>Xin chào: {{Auth::user()->name}}</p>
+                                    <p>Email: {{Auth::user()->email}}</p>
+
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        <em class="fa fa-power-off mr-1"></em>
+                                    Đăng xuất
+                                 
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+
+                                  </div>
+                                </div>
+                                @endif
 
                                 <!-- Login/Register & Cart Button -->
 

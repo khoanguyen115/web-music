@@ -82,6 +82,13 @@
                             </div>
                         </div>
                     </form>
+
+                    <div class="form-group row mb-0">
+                        <div class="col-md-12 text-center">
+                            Bạn chưa có tài khoản<a href="{{url('/register')}}" class="text-info"> Đăng ký</a>
+                        </div>
+                    </div>
+
                 </div>
             </div>
             <div class="row justify-content-center">
@@ -108,13 +115,20 @@ let data = $("#formlogin").serialize()
 axios.post('{{route('apilogin')}}', data).then((response)=>{
     $('#loading').hide();
 if(response.data.status == "success"){
-
     Toast.fire({
   type: 'success',
   title: 'Đăng nhập thành công'
 })
+console.log(response.data.role);
 setTimeout(()=>{
-location.assign('{{url('/admin')}}');
+
+    if (response.data.role === "admin") {
+            location.assign('{{url('/admin')}}');
+        }
+    else{
+        location.assign('{{url('/')}}');
+    }
+
 }, 1000)
 }
 else

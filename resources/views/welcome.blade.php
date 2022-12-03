@@ -168,7 +168,7 @@ Em hỏi sao nhạc anh hay, anh gọi nó là bí thuật!"
                                 <div class="testimonial-thumb">
                                     <img src="img/bg-img/den.jpg" alt="">
                                 </div>
-                                <p>– Đen Vâu</p>
+                                <p>– Justin Bieber</p>
                             </div>
                         </div>
                         <!-- Single Slide -->

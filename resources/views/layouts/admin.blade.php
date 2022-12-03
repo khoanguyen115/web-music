@@ -35,6 +35,7 @@ Admin Dashboard</title>
 <li class="nav-item"><a class="nav-link {{Request::path()=="admin/musics" ? 'active' : ''}}" href="/admin/musics"><em class="fas fa-music"></em> Bài hát</a></li>
 <li class="nav-item"><a class="nav-link {{Request::path()=="admin/albums" ? 'active' : ''}}" href="/admin/albums"><em class="fas fa-compact-disc"></em> Albums</a></li>
 <li class="nav-item"><a class="nav-link {{Request::path()=="admin/events" ? 'active' : ''}}" href="/admin/events"><em class="fas fa-calendar"></em> Sự kiện</a></li>
+<li class="nav-item"><a class="nav-link {{Request::path()=="admin/users" ? 'active' : ''}}" href="/admin/users"><em class="fas fa-user"></em> Người dùng</a></li>
 <li class="nav-item">
 <a class="nav-link" href="{{ route('logout') }}"
 onclick="event.preventDefault();
@@ -51,7 +52,13 @@ document.getElementById('logout-form').submit();"> <em class="fas fa-toggle-off"
                 <div class="dropdown user-dropdown col-md-6 col-lg-4 text-center text-md-right"><a class="btn btn-stripped dropdown-toggle" href="#" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <img src="{{asset('img/avatar.jpg')}}" alt="profile photo" class="circle float-left profile-photo" width="50" height="auto">
                     <div class="username mt-1">
-                    <h5 class="mb-1">Kiên Nguyên </h5>
+                    <h5 class="mb-1">
+                        @if (Auth::check())
+                        <span>
+                            {{Auth::user()->name}}
+                        </span>
+                        @endif
+                    </h5>
                         <h6 class="text-muted">Super Admin</h6>
                     </div>
                     </a>

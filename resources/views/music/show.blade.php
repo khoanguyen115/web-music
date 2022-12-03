@@ -22,13 +22,13 @@
                     <p class="h4"><b>{{$song->title}}</b></p>
                     @if($song->album_id > 0)
                     <p class="h5 text-success">
-                    <a href="{{url('/album/'.$song->album->slug)}}"> {{$song->album->name}}</a>
-                       </p>
+                        <a href="{{url('/album/'.$song->album->slug)}}"> {{$song->album->name}}</a>
+                    </p>
                     @endif
-                    <p><b>Added:</b>  {{mydate($song->created_at)}}</p>
-                <p><b>Hints:</b> {{$song->views}}</p>
+                    <p><b>Ngày đăng tải:</b>  {{mydate($song->created_at)}}</p>
+                    <p><b>Lượt nghe:</b> {{$song->views}}</p>
                 <p>
-                        <a href="#" class="btn btn-xs oneMusic-btn btn-2">Save to device</a>
+                        <a href="{{url('songs/'.$song->song)}}" class="btn btn-xs oneMusic-btn btn-2">Tải xuống</a>
                 </p>
 
 
@@ -38,12 +38,16 @@
 {{-- Row end --}}
 <div class="row">
         <div class="col-md-12">
-                <div class="mymusic m-4">
-                        <audio preload="auto" controls>
-                        <source src="{{url('/songs/'.$song->song)}}">
-                                    </audio>
-                                </div>
-                    </div>
+            <div class="mymusic m-4">
+                <!-- <audio preload="auto" controls>
+                    <source src="{{url('/songs/'.$song->song)}}">
+                </audio> -->
+                <audio controls>
+                    <source src="{{url('songs/'.$song->song)}}" type="audio/mpeg">
+                    Trình duyệt của bạn không hỗ trợ thành phần âm thanh.
+                </audio>
+            </div>
+        </div>
         </div>
         {{-- Player end --}}
         <br>

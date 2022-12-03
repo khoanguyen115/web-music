@@ -3,12 +3,41 @@
 
 
 @section('content')
-<div class="card">
-    <div class="card-body">        @foreach($users as $user)
-{{$user->name}}
-<button type="submit" onclick="edituser({{$user}})" class="btn btn-sm btn-primary">Edit</button>
-        @endforeach
+
+
+@if(Session::has('warning'))
+    <div class='alert alert-danger'>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        {{ Session::get('warning') }}
     </div>
+@endif
+
+<div class="card">
+  <table class="table table-striped table-bordered table-hover">
+      <thead class="thead-dark">
+          <tr>
+              <th>ID</th>
+              <th width="30%">Tên</th>
+              <th>Email</th>
+              <th width="15%">Tạo Lúc</th>
+              <th>Hành Động</th>
+          </tr>
+      </thead>
+      <tbody>
+        @foreach($users as $user)
+        @if ($user->id == \Auth::user()->id)
+            @break
+        @endif           
+        <tr>
+            <th scope="row">{{$user->id}}</th>
+            <td>{{$user->name}}</td>
+            <td>{{$user->email}}</td>
+            <td>{{$user->created_at}}</td>
+            <td class="text-center"><a href="{{route('admin.users.delete',$user->id)}}" class="btn btn-danger btn-sm">Xóa</a></td>
+          </tr>
+        @endforeach
+      </tbody>
+  </table>
 </div>
 
 

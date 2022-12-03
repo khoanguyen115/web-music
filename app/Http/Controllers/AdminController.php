@@ -312,11 +312,10 @@ class AdminController extends Controller
         if ($request->hasFile('image')) {
             $music->image = $img;
         }
-        $music->artist = "Justin Bieber";
+        $music->artist = $request->input('artist');
         if ($request->hasFile('song')) {
             $music->song = $filename;
         }
-       
 //        $music->slug = getslug($request->input('title'));
         $music->year = $request->input('year');
         $music->album_id = $request->input('album');
@@ -366,7 +365,7 @@ class AdminController extends Controller
         $music->title = $request->input('title');
         $music->content = $request->input('content');
         $music->image = $img;
-        $music->artist = "Đen Vâu";
+        $music->artist = $request->input('artist');
         $music->song = $filename;
         $music->year = $request->input('year');
         $music->slug = getslug($request->input('title'));
@@ -380,5 +379,11 @@ class AdminController extends Controller
     {
         $users = User::all();
         return view('admin.user', compact('users'));
+    }
+
+    public function userDelete($id){
+        $users = User::find($id);
+        $users->delete();
+        return redirect()->route('users')->with('warning', 'Xóa tài khoản thành công.');
     }
 }

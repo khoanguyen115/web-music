@@ -90,6 +90,13 @@
                             </div>
                         </div>
                     </form>
+
+                    <div class="form-group row mb-0 mt-4">
+                        <div class="col-md-12 text-center">
+                            Bạn đã có tài khoản<a href="{{url('/login')}}" class="text-info"> Đăng nhập</a>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
